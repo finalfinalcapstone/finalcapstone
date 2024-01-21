@@ -52,16 +52,27 @@
 
 <div class="container">
     <h2>User Login</h2>
-    <form action="your_login_endpoint_here" method="post">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-
-        <button type="submit">Log In</button>
-    </form>
+          <form id="loginForm">
+            <div class="form-group">
+              <label for="username">Username:</label>
+              <input type="text" id="username" name="username" required />
+            </div>
+            <div class="form-group">
+              <label for="password">Password:</label>
+              <input type="password" id="password" name="password" required />
+            </div>
+            <div class="form-group">
+              <button type="submit" id="loginButton">Login</button>
+            </div>
+            <a href="/register/index.html">Sign up for account</a>
+          </form>
 </div>
 
+
+<script src="../auth.js"></script>
+<script>
+  if (isLoggedIn() === true) window.location.replace("/posts");
+</script>
+<script src="./login.js"></script>
 </body>
 </html>
