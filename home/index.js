@@ -1,5 +1,9 @@
 "use strict"
 
+//global variables
+let profileBio = document.querySelector('#profileBio');
+let userData; 
+
 // run when page loads
 window.onload = init; 
 
@@ -15,6 +19,8 @@ function init(){
 
     var divisionBtn = document.getElementById("divisionBtn");
     divisionBtn.onclick = onDivisionBtn;
+
+    fetchUserProfile();
 }
 
 // add button -- 
@@ -67,6 +73,33 @@ function onDivisionBtn(){
     var sum = number1 / number2;
     
     answerField.value = sum;
+}
+
+// fetching userData 
+async function fetchUserProfile() {
+    try {
+         userData = await getLoginData();
+
+        // Set up headers for the fetch request
+        const headers = {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${userData.token}`
+        };
+
+        const response = await fetch('http://localhost:8080/profile', {
+            method: 'GET',
+            headers: headers
+        });
+
+        const profileData = await response.json();
+        if (profileData.firstName) {
+            profileBio.querySelector('h2').innerText = `Welcome Back, ${profileData.firstName}!`;
+        }
+        console.log(profileData);
+    } catch (error) {
+        console.error('Error fetching', error.message);
+    }
 }
 
 
