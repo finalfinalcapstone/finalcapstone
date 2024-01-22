@@ -73,7 +73,7 @@ async function logout() {
     };
   
     try {
-      const response = await fetch(apiBaseURL + "/logout", options);
+      const response = await fetch(apiBaseUrl + "/logout", options);
       const data = await response.json();
   
       console.log(data);
