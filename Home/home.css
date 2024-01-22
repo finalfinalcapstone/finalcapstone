@@ -1,0 +1,13 @@
+.box {
+  display: flex;
+  background-color: #c8cfd7;
+  width: fit-content;
+  font-size: larger;
+  padding: 2%;
+
+}
+
+h2 {
+  padding-bottom: 5%;
+}
+
