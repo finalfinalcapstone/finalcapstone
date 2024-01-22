@@ -25,53 +25,55 @@
         </div>
     
         <div class="container">
-            <button class="btn btn-dark">DEPOSIT</button>
+            <button id="depositFormBtn" class="btn btn-dark">DEPOSIT</button>
             <button class="btn btn-dark">PAYMENT</button>
             <button class="btn btn-dark">LEDGER</button>
             <button class="btn btn-dark">CALCULATOR</button>
         </div>
     
         <!-- Deposit Form -->
-        <section class="container p-3 border border-dark shadow mt-3 rounded" id="depositForm" style="display: none;">
-            <form id="depositTransactionForm">
+        <div class="">
+            <form id="depositTransactionForm" class="container p-3 border border-dark shadow mt-3 rounded" style="display: none;">
                 <div class="form-group row">
                     <label for="date" class="col-2 col-form-label">Date:</label>
                     <div class="col-4">
-                        <input type="text" id="date" class="form-control" placeholder="YYYY/MM/SS" required />
+                        <input type="text" id="date" class="form-control" placeholder="YYYY-MM-DD" required />
                     </div>
                 </div>
-    
+        
                 <div class="form-group row">
                     <label for="time" class="col-2 col-form-label">Time:</label>
                     <div class="col-4">
-                        <input type="text" id="time" class="form-control" placeholder="HH:mm:ss" required />
+                        <input type="text" id="time" class="form-control" placeholder="HH:MM:SS" required />
                     </div>
                 </div>
-    
+        
                 <div class="form-group row">
                     <label for="description" class="col-2 col-form-label">Description:</label>
                     <div class="col-4">
                         <input type="text" id="description" class="form-control" required />
                     </div>
                 </div>
-    
+        
                 <div class="form-group row">
                     <label for="vendor" class="col-2 col-form-label">Vendor:</label>
                     <div class="col-4">
                         <input type="text" id="vendor" class="form-control" required />
                     </div>
                 </div>
-    
+        
                 <div class="form-group row">
                     <label for="amount" class="col-2 col-form-label">Amount:</label>
                     <div class="col-4">
                         <input type="number" id="amount" class="form-control" required />
                     </div>
                 </div>
-    
-                <button class="btn btn-primary" type="submit">Submit Deposit</button>
+        
+                <button class="btn btn-primary" id="depositBtn">Submit Deposit</button>
             </form>
-        </section>
+        </div>
+        
+        </div>
     
         <!-- Calculator Section -->
         <section class="container p-3 border border-dark shadow mt-3 rounded" id="calculatorSection">
@@ -111,8 +113,6 @@
     
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-    
-    <!-- Your existing scripts and the new script for handling the form submission and calculator -->
     <script src="../auth.js"></script>
     <script src="./index.js"></script>
     <script>

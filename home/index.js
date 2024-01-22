@@ -3,6 +3,9 @@
 //global variables
 let profileBio = document.querySelector('#profileBio');
 let userData; 
+let depositTransactionForm = document.getElementById('depositTransactionForm')
+let depositFormBtn = document.getElementById('depositFormBtn')
+let depositBtn = document.getElementById("depositBtn");
 
 // run when page loads
 window.onload = init; 
@@ -21,6 +24,12 @@ function init(){
     divisionBtn.onclick = onDivisionBtn;
 
     fetchUserProfile();
+    
+    depositFormBtn.onclick = showDepositForm;
+
+    depositBtn.onclick = submitDepositForm;
+
+    
 }
 
 // add button -- 
@@ -98,8 +107,62 @@ async function fetchUserProfile() {
         }
         console.log(profileData);
     } catch (error) {
-        console.error('Error fetching', error.message);
+        console.error('Error fetching', error);
     }
 }
+
+function showDepositForm() {
+    if (depositTransactionForm.style.display === "none") {
+        depositTransactionForm.style.display = "block";
+    } else {
+        depositTransactionForm.style.display = "none";
+    }
+}
+
+async function submitDepositForm(e) {
+    e.preventDefault();
+
+    // Assuming getLoginData is defined somewhere
+    const userData = await getLoginData();
+
+    // Set up headers for the fetch request
+    const headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${userData.token}`
+    };
+
+    const date = document.getElementById('date').value;
+    const time = document.getElementById('time').value;
+    const description = document.getElementById('description').value;
+    const vendor = document.getElementById('vendor').value;
+    const amount = parseFloat(document.getElementById('amount').value);
+
+    // Ensure the date format matches the expected format by the server
+    const depositData = {
+        date: date, 
+        time: time, 
+        description: description,
+        vendor: vendor,
+        amount: amount
+    };
+    
+
+    try {
+        const response = await fetch('http://localhost:8080/transaction', {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify(depositData)
+        });
+
+        const result = await response.json();
+
+        console.log('Transaction result:', result);
+    } catch (error) {
+        console.error('Error posting transaction:', error);
+    }
+}
+
+
 
 
