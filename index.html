@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+<div class="container">
+  <h2>User Registration</h2>
+  
+  <form id="registerForm">
+      <div class="mb-3">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" class="form-control" required />
+      </div>
+      <div class="mb-3">
+        <label for="password">Password:</label>
+        <input type="text" id="password" name="password" class="form-control" required />
+      </div>
+      <div class="mb-3">
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required />
+      </div>
+      <div class="mb-3">
+        <label for="role">Role:</label>
+        <input type="text" id="role" name="role" class="form-control" required />
+      </div>
+      <button id="registerButton" type="submit" class="btn btn-primary">Join Now &#8594;</button>
+  </form>
+
+  <a href="/login">Already have an account? Login</a>
+</div>
+
+
+
+
+<script src="../auth.js"></script>
+<script>
+  if (isLoggedIn() === true) window.location.replace("/home");
+</script>
+<script src="./register.js"></script>
+</body>
+</html>

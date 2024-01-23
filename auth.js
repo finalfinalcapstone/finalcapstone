@@ -41,7 +41,7 @@ async function login(loginData) {
 
         console.log(data);
         window.localStorage.setItem("login-data", JSON.stringify(data));
-        window.location.assign('/Home');
+        window.location.assign('/home');
 
         return data;
     } catch (error) {
