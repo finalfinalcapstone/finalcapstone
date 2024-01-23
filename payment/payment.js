@@ -1,23 +1,14 @@
-"use strict"
+"use strict";
 
-//global variables
-let profileBio = document.querySelector('#profileBio');
-let userData; 
-let paymentTransactionForm = document.getElementById('depositTransactionForm');
-let paymentFormBtn = document.getElementById('paymentFormBtn');
-let paymentBtn = document.getElementById("paymentBtn");
-
-// run when page loads
-window.onload = init; 
+window.onload = init;
 
 function init(){
-
     fetchUserProfile();
-
     
 }
 
-// fetching userData 
+
+
 async function fetchUserProfile() {
     try {
          userData = await getLoginData();
@@ -35,16 +26,14 @@ async function fetchUserProfile() {
         });
 
         const profileData = await response.json();
-        if (profileData.username) {
-            profileBio.querySelector('h2').innerText = `Welcome Back, ${profileData.username}!`;
+        if (profileData.firstName) {
+            profileBio.querySelector('h2').innerText = `Welcome Back, ${profileData.firstName}!`;
         }
         console.log(profileData);
     } catch (error) {
         console.error('Error fetching', error);
     }
 }
-
-
 function showPaymentForm() {
     if (paymentTransactionForm.style.display === "none") {
         paymentTransactionForm.style.display = "block";
@@ -83,7 +72,7 @@ async function submitPaymentForm(e) {
     
 
     try {
-        const response = await fetch('http://localhost:8080/transaction', {
+        const response = await fetch('http://localhost:8080/transaction/payments', {
             method: 'POST',
             headers: headers,
             body: JSON.stringify(paymentData)
@@ -96,51 +85,3 @@ async function submitPaymentForm(e) {
         console.error('Error posting transaction:', error);
     }
 }
-
-
-async function submitPaymentForm(e) {
-    e.preventDefault();
-
-    // Assuming getLoginData is defined somewhere
-    const userData = await getLoginData();
-
-    // Set up headers for the fetch request
-    const headers = {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': `Bearer ${userData.token}`
-    };
-
-    // Extract form data
-    const date = document.getElementById('date').value;
-    const time = document.getElementById('time').value;
-    const description = document.getElementById('description').value;
-    const vendor = document.getElementById('vendor').value;
-    const amount = parseFloat(document.getElementById('amount').value);
-
-    // Ensure the date format matches the expected format by the server
-    const paymentData = {
-        date,
-        time,
-        description,
-        vendor,
-        amount
-    };
-
-    try {
-        // Send payment data to the server
-        const response = await fetch('http://localhost:8080/transaction', {
-            method: 'POST',
-            headers,
-            body: JSON.stringify(paymentData)
-        });
-
-        // Parse the server response
-        const result = await response.json();
-
-        console.log('Transaction result:', result);
-    } catch (error) {
-        console.error('Error posting transaction:', error);
-    }
-}
-
