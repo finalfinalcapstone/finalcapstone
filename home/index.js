@@ -123,7 +123,7 @@ async function submitDepositForm(e) {
     e.preventDefault();
 
     // Assuming getLoginData is defined somewhere
-    const userData = await getLoginData();
+    userData = await getLoginData();
 
     // Set up headers for the fetch request
     const headers = {
