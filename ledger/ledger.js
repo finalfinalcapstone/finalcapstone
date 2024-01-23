@@ -19,7 +19,6 @@ async function allTransactionsLedger(e) {
     const vendor = document.getElementById('vendor').value;
     const amount = parseFloat(document.getElementById('amount').value);
 
-    // Ensure the date format matches the expected format by the server
     const queryParams = new URLSearchParams({
         date,
         time,
