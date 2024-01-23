@@ -1,51 +1,20 @@
 "use strict";
 
+// global variables
+let userData;
+let paymentTransactionForm = document.getElementById('paymentTransactionForm');
+let paymentBtn = document.getElementById("paymentBtn");
+let displayRecentPayment = document.getElementById("displayRecentPayment");
+
 window.onload = init;
 
-function init(){
-    fetchUserProfile();
-    
-}
-
-
-
-async function fetchUserProfile() {
-    try {
-         userData = await getLoginData();
-
-        // Set up headers for the fetch request
-        const headers = {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': `Bearer ${userData.token}`
-        };
-
-        const response = await fetch('http://localhost:8080/profile', {
-            method: 'GET',
-            headers: headers
-        });
-
-        const profileData = await response.json();
-        if (profileData.firstName) {
-            profileBio.querySelector('h2').innerText = `Welcome Back, ${profileData.firstName}!`;
-        }
-        console.log(profileData);
-    } catch (error) {
-        console.error('Error fetching', error);
-    }
-}
-function showPaymentForm() {
-    if (paymentTransactionForm.style.display === "none") {
-        paymentTransactionForm.style.display = "block";
-    } else {
-        paymentTransactionForm.style.display = "none";
-    }
+function init() {
+    paymentBtn.onclick = submitPaymentForm;
 }
 
 async function submitPaymentForm(e) {
     e.preventDefault();
 
-    // Assuming getLoginData is defined somewhere
     userData = await getLoginData();
 
     // Set up headers for the fetch request
@@ -61,15 +30,13 @@ async function submitPaymentForm(e) {
     const vendor = document.getElementById('vendor').value;
     const amount = parseFloat(document.getElementById('amount').value);
 
-    // Ensure the date format matches the expected format by the server
     const paymentData = {
-        date: date, 
-        time: time, 
+        date: date,
+        time: time,
         description: description,
         vendor: vendor,
         amount: amount
     };
-    
 
     try {
         const response = await fetch('http://localhost:8080/transaction/payments', {
@@ -81,7 +48,53 @@ async function submitPaymentForm(e) {
         const result = await response.json();
 
         console.log('Transaction result:', result);
+
+        // After submitting the deposit, reload recent deposits
+        loadRecentPayments();
     } catch (error) {
         console.error('Error posting transaction:', error);
     }
+}
+
+async function loadRecentPayments() {
+    try {
+        userData = await getLoginData();
+
+        // Set up headers for the fetch request
+        const headers = {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${userData.token}`
+        };
+
+        const response = await fetch('http://localhost:8080/transaction/payments', {
+            method: 'GET',
+            headers: headers
+        });
+
+        const paymentData = await response.json();
+
+        // slice(0, 3)
+        displayRecentPayments(paymentData);
+    } catch (error) {
+        console.error('Error fetching recent payments:', error);
+    }
+}
+
+function displayRecentPayments(payments) {
+    displayRecentPayment.innerHTML = '';
+
+    payments.forEach(payments => {
+        const paymentElement = document.createElement('div');
+        paymentElement.innerHTML = `
+            <p>ID: ${payments.id}</p>
+            <p>Date: ${payments.date}</p>
+            <p>Time: ${payments.time}</p>
+            <p>Description: ${payments.description}</p>
+            <p>Vendor: ${payments.vendor}</p>
+            <p>Amount: ${payments.amount}</p>
+            <hr>
+        `;
+        displayRecentPayment.appendChild(paymentElement);
+    });
 }
