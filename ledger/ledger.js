@@ -1,4 +1,13 @@
-fetchUserProfile();
+window.onload() = init  
+
+function init(
+    fetchUserProfile();
+
+
+)
+
+
+
 async function fetchUserProfile() {
     try {
         const userData = await getLoginData();
