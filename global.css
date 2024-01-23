@@ -1,0 +1,13 @@
+.bg-lightBlue{
+    background-color: #399cbd;
+}
+
+.navbar-nav .nav-link.active {
+    color: #fff; /* Change this to the desired color for the active link */
+    font-weight: bold; /* Add this line for a bold font on the active link */
+}
+
+.btn:hover {
+    background-color: #399cbd;
+    
+}
