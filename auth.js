@@ -62,27 +62,27 @@ function isLoggedIn(){
 }
 
 // logout
-async function logout() {
-    const loginData = getLoginData();
+// async function logout() {
+//     const loginData = getLoginData();
   
-    const options = {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer // ${loginData.token}`,
-      },
-    };
+//     const options = {
+//       method: "GET",
+//       headers: {
+//         Authorization: `Bearer // ${loginData.token}`,
+//       },
+//     };
   
-    try {
-      const response = await fetch(apiBaseURL + "/logout", options);
-      const data = await response.json();
+//     try {
+//       const response = await fetch(apiBaseURL + "/logout", options);
+//       const data = await response.json();
   
-      console.log(data);
-    } catch (error) {
-      console.error("Logout error:", error);
+//       console.log(data);
+//     } catch (error) {
+//       console.error("Logout error:", error);
      
-    }
+//     }
   
-    window.localStorage.removeItem("login-data"); 
-    window.location.assign("/login"); 
-  }
+//     window.localStorage.removeItem("login-data"); 
+//     window.location.assign("/login"); 
+//   }
   
