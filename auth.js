@@ -60,6 +60,7 @@ function isLoggedIn(){
     const loginData = getLoginData();
     return Boolean(loginData.token)
 }
+export { getLoginData };
 
 // logout
 // async function logout() {
